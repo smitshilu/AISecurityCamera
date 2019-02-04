@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 import dlib
 
-def mainmain(file, name, detect_faces, predictor, facerec):
+def mainmain(file, name, detect_faces, predictor):
     while True:
         # Grab a single frame from WebCam
     	ret, frame = cv2.imread(file)
@@ -43,6 +43,5 @@ if __name__ == '__main__':
 
     detect_faces = cv2.CascadeClassifier('haarcascade_frontalface_alt2.xml')
     predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
-    facerec = dlib.face_recognition_model_v1("dlib_face_recognition_resnet_model_v1.dat")
 
-    main(file, name, detect_faces, predictor, facerec)
+    main(file, name, detect_faces, predictor)
