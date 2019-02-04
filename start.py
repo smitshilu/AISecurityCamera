@@ -4,7 +4,7 @@
 # To run this, you need a Raspberry Pi 2 (or greater) with face_recognition and
 # the picamera[array] module installed.
 
-# PLEASE NOTE: This example requires OpenCV (the `cv2` library) to be installed only to read from your webcam.
+# PLEASE NOTE: This example requires OpenCV (the `cv2` library) and dlib to be installed only to read from your webcam.
 
 import time
 import cv2
@@ -35,7 +35,7 @@ def main(video_capture, saved_face_encodings, names, detect_faces, predictor, fa
     	# Find all the faces and face enqcodings in the frame
     	#face_locations = face_recognition.face_locations(frame, number_of_times_to_upsample=0, model="cnn")
     	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    	faces = detected_faces.detectMultiScale(gray, 1.3,5)
+    	faces = detect_faces.detectMultiScale(gray, 1.3,5)
     	
     	face_locations = []
     	for (x,y,w,h) in faces:
