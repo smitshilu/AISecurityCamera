@@ -7,7 +7,7 @@ Blog Post: Coming Soon
 Video: Coming Soon
 
 ## Demo
-![Demo](https://github.com/smitshilu/SnapChatFilterExample/blob/master/sample.gif)
+Coming Soon
 
 Required libraries on PI:
   1. dlib
