@@ -33,7 +33,6 @@ def main(video_capture, saved_face_encodings, names, detect_faces, predictor, fa
     	ret, frame = video_capture.read()
 
     	# Find all the faces and face enqcodings in the frame
-    	#face_locations = face_recognition.face_locations(frame, number_of_times_to_upsample=0, model="cnn")
     	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     	faces = detect_faces.detectMultiScale(gray, 1.3,5)
     	
