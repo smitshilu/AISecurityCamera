@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 import dlib
 
-def mainmain(file, name, detect_faces, predictor):
+def main(file, name, detect_faces, predictor):
     while True:
         # Grab a single frame from WebCam
     	ret, frame = cv2.imread(file)
