@@ -28,7 +28,8 @@ def motion_detected():
             return True
 
 def main(video_capture, saved_face_encodings, names, detect_faces, predictor, facerec):
-    while True:
+    start_time = time.time()
+    while ((time.time() - start_time) < 10.1):
         # Grab a single frame from WebCam
     	ret, frame = video_capture.read()
 
@@ -57,13 +58,9 @@ def main(video_capture, saved_face_encodings, names, detect_faces, predictor, fa
                 # Save image for future use
                 if name=="Unknown":
                     cv2.imwrite(os.path.join(os.getcwd(), "unknown", str(int(time.time()))+".png"), frame)
+                else:
+                    return
 
-		        # Draw a box around the face
-                cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
-
-			    # Draw a label with a name below the face
-                font = cv2.FONT_HERSHEY_DUPLEX
-                cv2.putText(frame, name, (left, bottom + 26), font, 1.0, (255, 255, 255), 1)
 
 if __name__ == '__main__':
     detect_faces = cv2.CascadeClassifier('haarcascade_frontalface_alt2.xml')
