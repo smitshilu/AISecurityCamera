@@ -5,30 +5,28 @@
 import cv2
 import numpy as np
 import dlib
+import argparse
 
-def main(file, name, detect_faces, predictor):
-    while True:
-        # Grab a single frame from WebCam
-    	ret, frame = cv2.imread(file)
+def main(file, person_name, detect_faces, predictor):
+    # Grab a single frame from WebCam
+    frame = cv2.imread(file)
+            
+    # Find all the faces and face enqcodings in the frame
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    faces = detect_faces.detectMultiScale(gray, 1.3,5)
+    face_locations = []
+    for (x,y,w,h) in faces:
+    	face_locations.append(dlib.rectangle(x, y, x+w, y+h))
 
-    	# Find all the faces and face enqcodings in the frame
-    	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    	faces = detect_faces.detectMultiScale(gray, 1.3,5)
-    	
-    	face_locations = []
-    	for (x,y,w,h) in faces:
-    		temp_tuple = (y, x+w, y+h, x)
-    		face_locations.append(temp_tuple)
-    	
-        # If there is atleast 1 face then do face recognition 
-    	if (len(face_locations) > 0 and len(face_locations) < 2):
-            for face_location in face_locations:
-                face_encoding = predictor(frame, face_location)
-
-                # Save encoding in a numpy file
-                np.save("face_encodings/"+person_name+'.npy', face_encoding)
-        else:
-            print("Either no face or more then one face detected. Please check the image file again")
+    # If there is atleast 1 face then do face recognition 
+    if (len(face_locations) > 0 and len(face_locations) < 2):
+        for face_location in face_locations:
+            face_encoding = predictor(frame, face_location)
+            face_descriptor = face_rec.compute_face_descriptor(frame, face_encoding, 1)
+            # Save encoding in a numpy file
+            np.save("face_encodings/"+person_name, np.array(face_descriptor))
+    else:
+        print("Either no face or more then one face detected. Please check the image file again")
                 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -38,9 +36,10 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     file = args.file
-    name = args.name
+    person_name = args.name
 
     detect_faces = cv2.CascadeClassifier('haarcascade_frontalface_alt2.xml')
     predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+    face_rec = dlib.face_recognition_model_v1('dlib_face_recognition_resnet_model_v1.dat')
 
-    main(file, name, detect_faces, predictor)
+    main(file, person_name, detect_faces, predictor)
