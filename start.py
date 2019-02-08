@@ -39,12 +39,12 @@ def main(video_capture, saved_face_descriptor, names, detect_faces, predictor, f
                 face_descriptor = face_rec.compute_face_descriptor(frame, face_encoding, 1)
 
                 # See if the face is a match for the known face(s)
-                match = list((np.linalg.norm(saved_face_descriptor - (np.array(face_descriptor)), axis=1)) < 0.6)
+                match = list((np.linalg.norm(saved_face_descriptor - (np.array(face_descriptor)), axis=1)))
+                val, idx = min((val, idx) for (idx, val) in enumerate(match))
 
                 name = "Unknown"
-                for i, face in enumerate(match):
-                    if (face):
-                	    name = names[i]
+                if (val < 0.6):
+                	name = names[idx]
 
                 print(name)
                 # Save image for future use
