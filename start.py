@@ -12,8 +12,11 @@ import numpy as np
 import glob
 import os
 import dlib
-
 import time
+import pygame
+
+pygame.mixer.init()
+pygame.mixer.music.load("Audio.mp3")
 
 def motion_detected():
     return True
@@ -50,6 +53,7 @@ def main(video_capture, saved_face_descriptor, names, detect_faces, predictor, f
                 # Save image for future use
                 if name=="Unknown":
                     cv2.imwrite(os.path.join(os.getcwd(), "unknown", str(int(time.time()))+".png"), frame)
+                    pygame.mixer.music.play()
                 else:
                     return
 
