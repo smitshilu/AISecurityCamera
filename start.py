@@ -14,12 +14,18 @@ import os
 import dlib
 import time
 import pygame
+from gpiozero import MotionSensor
 
 pygame.mixer.init()
 pygame.mixer.music.load("Audio.mp3")
 
+pir = MotionSensor(23)
+
 def motion_detected():
-    return True
+
+    while True:
+        pir.wait_for_motion()
+        return True
 
 def main(video_capture, saved_face_descriptor, names, detect_faces, predictor, face_rec):
     start_time = time.time()
