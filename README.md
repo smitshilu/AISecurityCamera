@@ -2,12 +2,12 @@
 
 This is a simple Security Camera example which detects motion and perform face recognition using OpenCV and dlib on Raspberry PI. 
 
-Blog Post: Coming Soon
+Blog Post: [Medium](https://towardsdatascience.com/make-your-own-smart-home-security-camera-a89d47284fc7)
 
-Video: Coming Soon
+Video: [YouTube](https://www.youtube.com/watch?v=bqIY0pOsZZ0)
 
 ## Demo
-Coming Soon
+![Demo](https://github.com/smitshilu/AISecurityCamera/blob/master/Demo.gif)
 
 Required libraries on PI:
   1. dlib
